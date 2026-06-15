@@ -484,10 +484,15 @@ body.night .todo-due.over{color:#E59A8E}
 .slap-float{animation:slapFloat 3.4s ease-in-out infinite}
 @keyframes slapFloat{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
 .slap-flat{animation:none !important;transform:rotate(86deg) scale(.92);opacity:.85;transition:transform .6s ease,opacity .6s ease;filter:grayscale(.4)}
-.slap-shrink{animation:none !important;transform:scale(.05);opacity:0;transition:transform .6s cubic-bezier(.5,0,.7,.3),opacity .6s ease;filter:grayscale(.5)}
-.summon-cup{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:200px;height:180px;pointer-events:none;animation:cupPop .6s cubic-bezier(.34,1.56,.64,1) both;z-index:6}
+.slap-shrink{animation:slapFlyAway 2.5s cubic-bezier(.3,.1,.3,1) forwards !important;filter:grayscale(.5)}
+@keyframes slapFlyAway{
+  0%{transform:translate(0,0) scale(1) rotate(0);opacity:1}
+  30%{opacity:1}
+  100%{transform:translate(38px,-150px) scale(.06) rotate(28deg);opacity:0}
+}
+.summon-cup{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:200px;height:180px;pointer-events:none;animation:cupFade 2.4s cubic-bezier(.4,0,.4,1) both;z-index:6}
 .summon-cup svg{width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
-@keyframes cupPop{0%{opacity:0;transform:translate(-50%,-40%) scale(.4)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes cupFade{0%{opacity:0;transform:translate(-50%,-43%) scale(.93)}35%{opacity:.18}70%{opacity:.7}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .cup-steam{animation:cupSteam 2.4s ease-in-out infinite}
 @keyframes cupSteam{0%,100%{opacity:.25}50%{opacity:.7}}
 
@@ -604,7 +609,7 @@ body.night .todo-due.over{color:#E59A8E}
 .shrine-scene textarea#confessText{width:100%;height:100%;box-sizing:border-box;background:transparent;border:none;resize:none;overflow-y:auto;overflow-x:hidden;overflow-wrap:break-word;word-break:break-word;white-space:pre-wrap;font-family:'Noto Serif TC',serif;font-weight:500;font-size:.68rem;line-height:1.7;letter-spacing:0;padding:6px 10px;outline:none;color:#F3E9D2;text-shadow:0 1px 3px rgba(18,20,45,.55),0 0 8px rgba(18,20,45,.3);text-align:left}
 .shrine-scene textarea#confessText::placeholder{color:rgba(243,233,210,.6)}
 .shrine-body{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;padding:6px 22px calc(24px + env(safe-area-inset-bottom,0px));overflow-y:auto}
-.shrine-sub{color:#CDBF9E;font-size:.82rem;letter-spacing:.04em;text-align:center;line-height:1.95;max-width:440px;margin-top:2px}
+.shrine-sub{color:#CDBF9E;font-size:.78rem;letter-spacing:.02em;text-align:center;line-height:1.9;max-width:440px;margin-top:2px;text-wrap:pretty}
 .shrine-note{color:#9C8FA8;font-size:.72rem;letter-spacing:.04em;text-align:center;line-height:1.7;margin-top:-4px;opacity:.85}
 .confess-paper{position:relative;width:100%;max-width:420px;transition:opacity .9s,transform .9s}
 .seal{position:absolute;right:11px;bottom:9px;width:30px;height:30px;background:#B5453C;color:#F8F1E3;font-family:var(--serif);font-size:.95rem;display:flex;align-items:center;justify-content:center;border-radius:5px;transform:rotate(-5deg);opacity:.92;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:none}
@@ -1019,7 +1024,7 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
     </button>
   </div>
   <div class="shrine-body">
-    <div class="shrine-sub"><span data-i18n="shrine_sub">時間不等人,隨著年齡的增長,更能深入理解時間的現實與虛幻。<br>生活給我們帶來了各種各樣的轉折和挑戰,<br>但我認為我們的目標之一,是以雅緻得體的態度走完生命之路。</span></div>
+    <div class="shrine-sub"><span data-i18n="shrine_sub">時間不等人,隨著年齡的增長,<br>更能深入理解時間的現實與虛幻。<br>生活給我們帶來了各種各樣的轉折和挑戰,<br>但我認為我們的目標之一,<br>是以雅緻得體的態度走完生命之路。</span></div>
     <div class="shrine-scene" id="shrineScene">
       <div class="confess-paper" id="confessPaper">
         <textarea id="confessText" maxlength="300" data-i18n-ph="ph_confess" placeholder="在這裡寫下心裡的話⋯⋯"></textarea>
@@ -1267,7 +1272,7 @@ const I18N = {
  door_shrine:["寫給你的旋律","A Melody for You"], door_shrine_sub:["寫完,化成音符傳給他","write it, let it drift to him as notes"],
  btn_back:["先回去","Go back"],
  shrine_note:["寫下的字不會被保存,只會化成音符傳給他。","What you write is never saved — it only becomes notes that drift to him."],
- shrine_sub:["時間不等人,隨著年齡的增長,更能深入理解時間的現實與虛幻。<br>生活給我們帶來了各種各樣的轉折和挑戰,<br>但我認為我們的目標之一,是以雅緻得體的態度走完生命之路。","Time waits for no one; with age we grasp its reality and illusion more deeply.<br>Life brings all kinds of turns and challenges,<br>but one of our goals is to walk life's path with grace."],
+ shrine_sub:["時間不等人,隨著年齡的增長,<br>更能深入理解時間的現實與虛幻。<br>生活給我們帶來了各種各樣的轉折和挑戰,<br>但我認為我們的目標之一,<br>是以雅緻得體的態度走完生命之路。","Time waits for no one; with age<br>we grasp its reality and illusion more deeply.<br>Life brings all kinds of turns and challenges,<br>but one of our goals is to walk<br>life's path with grace."],
  ph_confess:["在這裡寫下心裡的話⋯⋯","Write what's on your mind here…"],
  btn_burn:["化 作 旋 律","Turn into Melody"],
  oracle_note:["紙箋已化作星屑,你寫下的字沒有被記下。","The slip has turned to stardust. Your words were never recorded."],
@@ -2980,14 +2985,14 @@ function finishSlap(){
       <svg viewBox="0 0 200 180" fill="none">
         <ellipse cx="92" cy="166" rx="56" ry="8" fill="rgba(0,0,0,.22)"/>
         <!-- 白瓷杯身 -->
-        <path d="M40 60h104v66a22 22 0 0 1-22 22H62a22 22 0 0 1-22-22Z" fill="#FCFCFA" stroke="#D8D4CC" stroke-width="2.5"/>
+        <path d="M40 60h104v48a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40Z" fill="#FCFCFA" stroke="#D8D4CC" stroke-width="2.5"/>
         <!-- 杯口內緣 -->
         <ellipse cx="92" cy="60" rx="52" ry="9" fill="#FFFFFF" stroke="#D8D4CC" stroke-width="2.5"/>
         <ellipse cx="92" cy="60" rx="44" ry="6.5" fill="#6F4A33"/>
         <!-- 把手 -->
         <path d="M144 76h14a22 22 0 0 1 0 44h-12" fill="none" stroke="#D8D4CC" stroke-width="6" stroke-linecap="round"/>
         <!-- 四個字一行 -->
-        <text x="92" y="104" text-anchor="middle" font-family="'Noto Serif TC',serif" font-weight="700" font-size="20" letter-spacing="1" fill="#4A5568">被約談中</text>
+        <text x="92" y="108" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif TC',serif" font-weight="700" font-size="20" letter-spacing="1" fill="#4A5568">被約談中</text>
         <!-- 蒸氣 -->
         <path class="cup-steam" d="M74 44c0-8 7-8 7-16s-7-8-7-16" stroke="rgba(200,195,185,.7)" stroke-width="3" stroke-linecap="round" fill="none"/>
         <path class="cup-steam" d="M100 44c0-8 7-8 7-16s-7-8-7-16" stroke="rgba(200,195,185,.55)" stroke-width="3" stroke-linecap="round" fill="none" style="animation-delay:.9s"/>
@@ -2996,8 +3001,8 @@ function finishSlap(){
     setTimeout(()=>{
       $('#slapDoneMsg').textContent=(EN?SLAP_DONE_EN:SLAP_DONE_ZH)[Math.floor(Math.random()*4)];
       $('#slapDone').classList.add('show');
-    },2200);
-  },650);
+    },3200);
+  },2400);
 }
 
 
