@@ -1,6 +1,6 @@
 /* 麻瓜星圖 Journal — service worker
    快取單頁與字型,讓 App 可離線使用 */
-const CACHE = 'magua-journal-v2';
+const CACHE = 'magua-journal-v3';
 const CORE = ['./', './index.html'];
 
 self.addEventListener('install', e => {
