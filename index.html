@@ -111,6 +111,15 @@ body.night .bubble{background:radial-gradient(circle at 35% 30%,#fff,#CFC6E6)}
 }
 .moon-btn:active{transform:scale(.92)}
 .moon-btn.charging{animation:moonglow 1.2s linear forwards}
+.moon-btn svg{overflow:visible}
+.moon-btn .moon-halo{animation:moonBreath 4s ease-in-out infinite;transform-origin:center}
+@keyframes moonBreath{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+.moon-btn .moon-spark{animation:moonTwinkle 3s ease-in-out infinite}
+.moon-btn .moon-spark2{animation-delay:1.3s}
+@keyframes moonTwinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.1)}}
+.moon-btn .moon-body{filter:none}
+.moon-btn .moon-rim{filter:drop-shadow(0 0 3px rgba(255,246,216,.9)) drop-shadow(0 0 7px rgba(244,227,178,.7));animation:moonRimGlow 4s ease-in-out infinite}
+@keyframes moonRimGlow{0%,100%{opacity:.85;filter:drop-shadow(0 0 3px rgba(255,246,216,.8)) drop-shadow(0 0 6px rgba(244,227,178,.55))}50%{opacity:1;filter:drop-shadow(0 0 6px rgba(255,246,216,1)) drop-shadow(0 0 12px rgba(244,227,178,.85))}}
 @keyframes moonglow{to{filter:drop-shadow(0 0 14px #F4E3B2)}}
 
 /* ---------- 版面 ---------- */
@@ -624,24 +633,27 @@ body.night .todo-due.over{color:#E59A8E}
 /* 符咒 */
 .letter-wrap{position:relative;width:100%;max-width:330px;perspective:900px}
 .talisman{position:relative;width:100%;background:
-    linear-gradient(170deg,#F6EAD2,#EFE0C0);
-    border:1px solid #C9A86A;border-radius:4px;
-    box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 26px rgba(201,168,106,.18), inset 0 0 0 1px rgba(255,255,255,.35);
-    padding:54px 30px 46px;transform-origin:top center;transition:transform .3s;overflow:hidden;
+    radial-gradient(120% 80% at 50% 20%,#FBF1DD,#F1E4C8 70%,#EAD9B8);
+    border:1px solid rgba(201,168,106,.28);border-radius:26px;
+    box-shadow:0 12px 40px rgba(0,0,0,.5), inset 0 0 34px rgba(201,168,106,.16), inset 0 0 0 1px rgba(255,255,255,.4);
+    padding:30px 28px 40px;transform-origin:top center;transition:transform .3s;overflow:hidden;
     animation:talBreath 4.2s ease-in-out infinite}
 @keyframes talBreath{0%,100%{box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 26px rgba(201,168,106,.18), inset 0 0 0 1px rgba(255,255,255,.35), 0 0 0 0 rgba(232,201,135,0)}50%{box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 30px rgba(224,170,90,.26), inset 0 0 0 1px rgba(255,255,255,.4), 0 0 26px 2px rgba(232,201,135,.22)}}
 /* 內框細線 */
-.talisman::after{content:'';position:absolute;left:12px;right:12px;top:12px;bottom:12px;border:1px solid rgba(201,168,106,.4);border-radius:2px;pointer-events:none;z-index:1}
+.talisman::after{content:'';position:absolute;left:9px;right:9px;top:9px;bottom:9px;border-radius:20px;pointer-events:none;z-index:1;box-shadow:inset 0 0 0 1px rgba(201,168,106,.14), inset 0 0 22px rgba(201,168,106,.08)}
 /* 符頭星月金印 */
-.tal-seal{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:42px;height:42px;z-index:2;filter:drop-shadow(0 0 8px rgba(232,201,135,.5))}
+.tal-seal{position:absolute;bottom:14px;right:16px;width:34px;height:34px;z-index:2;opacity:.85;filter:drop-shadow(0 0 7px rgba(232,201,135,.45))}
 .tal-seal svg{width:100%;height:100%}
 /* 底部封印星 */
-.tal-foot{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:58px;height:26px;z-index:2;opacity:.9}
+.tal-foot{position:absolute;bottom:12px;left:16px;width:44px;height:22px;z-index:2;opacity:.7}
 .tal-foot svg{width:100%;height:100%}
 /* 兩側星點符文邊 */
-.tal-rune{position:absolute;top:48px;bottom:42px;width:14px;z-index:2;pointer-events:none}
-.tal-rune-l{left:14px}.tal-rune-r{right:14px}
+.tal-rune{position:absolute;top:40px;bottom:40px;width:14px;z-index:2;pointer-events:none;opacity:.4}
+.tal-rune-l{left:16px}.tal-rune-r{right:16px}
 /* 書寫區 */
+.tal-stars{position:absolute;inset:14px;z-index:1;pointer-events:none}
+.tal-stars i{position:absolute;display:block;width:3px;height:3px;border-radius:50%;background:radial-gradient(circle,#F4E3B2,rgba(244,227,178,0));box-shadow:0 0 4px rgba(232,201,135,.7);animation:talStar 3.2s ease-in-out infinite}
+@keyframes talStar{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:.9;transform:scale(1)}}
 .talisman textarea{width:100%;min-height:150px;border:none;resize:none;outline:none;
     font-family:'Noto Serif TC',serif;font-size:15px;line-height:30px;color:#4A3F2E;box-sizing:border-box;
     position:relative;z-index:2;padding:0;text-align:center;background:transparent}
@@ -700,6 +712,15 @@ body.night .todo-due.over{color:#E59A8E}
 .confess-paper.burning{opacity:0;transform:translateY(-34px) scale(.92);pointer-events:none}
 .music-note{position:fixed;z-index:8;pointer-events:none;color:#F4E3B2;text-shadow:0 0 10px rgba(244,227,178,.8),0 0 20px rgba(244,227,178,.4);will-change:transform,opacity}
 .music-note.bright{color:#FFF6D8;text-shadow:0 0 14px rgba(255,246,216,.95),0 0 26px rgba(244,227,178,.6)}
+.burn-icon-btn{width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(232,201,135,.6);
+    background:radial-gradient(circle at 50% 38%,rgba(255,247,220,.22),rgba(201,168,106,.12));
+    color:#F0DCA8;display:flex;align-items:center;justify-content:center;margin:4px auto 0;
+    box-shadow:0 6px 22px rgba(0,0,0,.4), inset 0 0 16px rgba(232,201,135,.18);
+    animation:burnBtnGlow 2.8s ease-in-out infinite;transition:transform .2s}
+.burn-icon-btn svg{filter:drop-shadow(0 0 5px rgba(232,201,135,.8))}
+.burn-icon-btn:active{transform:scale(.9)}
+.burn-icon-btn:disabled{opacity:.5}
+@keyframes burnBtnGlow{0%,100%{box-shadow:0 6px 22px rgba(0,0,0,.4), inset 0 0 16px rgba(232,201,135,.16), 0 0 0 0 rgba(232,201,135,0)}50%{box-shadow:0 6px 22px rgba(0,0,0,.4), inset 0 0 20px rgba(232,201,135,.26), 0 0 22px 2px rgba(232,201,135,.35)}}
 .burn-btn{width:100%;max-width:420px;background:linear-gradient(180deg,#EBCE8E,#C9A86A);color:#3A2F1C;border-radius:999px;padding:14px 30px;font-weight:700;letter-spacing:.22em;box-shadow:0 4px 18px rgba(201,168,106,.35);font-size:.86rem}
 .burn-btn:active{transform:scale(.96)}
 .burn-btn:disabled{opacity:.4}
@@ -743,8 +764,22 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
   <button class="topbtn" id="fontBtn" aria-label="字體大小">Aa</button>
   <button class="topbtn" id="langBtn" aria-label="語言">EN</button>
   <button class="moon-btn" id="moonBtn" aria-label="月亮">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-      <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="#F4E3B2" stroke="#E0A95C" stroke-width="1.2"/>
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+      <defs>
+        <radialGradient id="moonGrad" cx="38%" cy="34%" r="75%">
+          <stop offset="0" stop-color="#FFF7DC"/><stop offset="55%" stop-color="#F4E3B2"/><stop offset="100%" stop-color="#E5B36A"/>
+        </radialGradient>
+        <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="rgba(244,227,178,.55)"/><stop offset="60%" stop-color="rgba(244,227,178,.18)"/><stop offset="100%" stop-color="rgba(244,227,178,0)"/>
+        </radialGradient>
+      </defs>
+      <circle class="moon-halo" cx="12" cy="12" r="11" fill="url(#moonHalo)"/>
+      <path class="moon-body" d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="url(#moonGrad)" stroke="#FBEFC8" stroke-width="0.9"/>
+      <path class="moon-rim" d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="none" stroke="#FFF6D8" stroke-width="1.2"/>
+      <circle cx="7.5" cy="8" r="1.1" fill="#FBEFC8" opacity=".55"/>
+      <circle cx="10" cy="13" r="1.5" fill="#E5B36A" opacity=".4"/>
+      <path class="moon-spark moon-spark1" d="M18.5 5.2l.5 1.4 1.4.5-1.4.5-.5 1.4-.5-1.4-1.4-.5 1.4-.5Z" fill="#FFF6D8"/>
+      <path class="moon-spark moon-spark2" d="M16 16.5l.35 1 1 .35-1 .35-.35 1-.35-1-1-.35 1-.35Z" fill="#F4E3B2"/>
     </svg>
   </button>
 </header>
@@ -1091,7 +1126,7 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
       <span class="dsub" data-i18n="door_shrine_sub">寫完,化成音符傳給他</span>
     </button>
     <button class="door" id="doorBurn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A765" stroke-width="1.4"><path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1.4.6-2.3 1.4-3"/><path d="M12 13.5c.6.5 1 1.2 1 2a1.6 1.6 0 0 1-3.2 0c0-.5.2-.9.5-1.3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8C987" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M8 3.5h8v10.5l-4 2.2-4-2.2Z"/><path d="M12 6.3l.7 1.6 1.8.2-1.4 1.2.4 1.7-1.5-.9-1.5.9.4-1.7-1.4-1.2 1.8-.2Z" fill="#E8C987" stroke="none"/><path d="M12 17.6c1.4 1.1 2.1 2.1 2.1 3.2a2.1 2.1 0 0 1-4.2 0c0-.7.3-1.3.8-1.9"/></svg>
       <span data-i18n="door_burn">焚信祈福</span>
       <span class="dsub" data-i18n="door_burn_sub">燒掉煩惱,乞一支好籤</span>
     </button>
@@ -1141,6 +1176,7 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
     <div class="burn-sub"><span data-i18n="burn_sub">把心裡的鬱悶寫成一封信,<br>交給火,讓它隨煙飛散。<br>燒完,為你求一支好籤。</span></div>
     <div class="letter-wrap" id="letterWrap">
       <div class="talisman" id="letterPaper">
+        <div class="tal-stars" id="talStars" aria-hidden="true"></div>
         <svg class="tal-rune tal-rune-l" viewBox="0 0 16 320" preserveAspectRatio="none" aria-hidden="true"></svg>
         <svg class="tal-rune tal-rune-r" viewBox="0 0 16 320" preserveAspectRatio="none" aria-hidden="true"></svg>
         <div class="tal-seal" aria-hidden="true">
@@ -1152,7 +1188,9 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
         </div>
       </div>
     </div>
-    <button class="burn-btn" id="burnFireBtn" data-i18n="burn_btn">焚 予 星 空</button>
+    <button class="burn-icon-btn" id="burnFireBtn" aria-label="焚予星空">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="5.5" y="2" width="13" height="20" rx="2.4" fill="rgba(255,247,220,.28)" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="7" r="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M13.2 6.5a1.7 1.7 0 1 1-1.7-1.7" fill="currentColor"/><path d="M8.5 12.5h7M8.5 15.2h7M8.5 17.9h4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
     <div class="shrine-note" data-i18n="burn_note">寫下的字不會被保存,燒成灰,隨風走。</div>
   </div>
   <!-- 祈福籤 -->
@@ -3193,6 +3231,11 @@ function buildRunes(){
   };
   mk($('#letterPaper').querySelector('.tal-rune-l'));
   mk($('#letterPaper').querySelector('.tal-rune-r'));
+  // 散落星光
+  const sb=$('#talStars'); if(sb){ sb.innerHTML='';
+    const pts=[[18,30],[80,22],[12,62],[88,55],[30,82],[70,88],[50,15],[60,46],[24,48],[82,78]];
+    pts.forEach((p,i)=>{ const s=document.createElement('i'); s.style.left=p[0]+'%'; s.style.top=p[1]+'%'; s.style.animationDelay=(i*0.31%3.2)+'s'; const sc=0.7+Math.random()*0.9; s.style.width=(3*sc)+'px'; s.style.height=(3*sc)+'px'; sb.appendChild(s); });
+  }
 }
 function openBurn(){
   $('#burnText').value=''; const p=$('#letterPaper'); p.classList.remove('burning','casting');
