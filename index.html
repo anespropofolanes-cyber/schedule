@@ -611,6 +611,85 @@ body.night .todo-due.over{color:#E59A8E}
 .shrine-body{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;padding:6px 22px calc(24px + env(safe-area-inset-bottom,0px));overflow-y:auto}
 .shrine-sub{color:#CDBF9E;font-size:.78rem;letter-spacing:.02em;text-align:center;line-height:1.9;max-width:440px;margin-top:2px;text-wrap:pretty}
 .shrine-note{color:#9C8FA8;font-size:.72rem;letter-spacing:.04em;text-align:center;line-height:1.7;margin-top:-4px;opacity:.85}
+/* ---------- 焚信祈福室 ---------- */
+.burn-room{position:fixed;inset:0;z-index:212;display:none;flex-direction:column;color:#EFE7D8;overflow:hidden;background:#1B1730}
+.burn-room.open{display:flex;animation:pagein .4s ease}
+.burn-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(120% 90% at 50% 8%,#3A2E3C,#241A26 55%,#160F18 100%)}
+.burn-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 18%,rgba(224,140,70,.16),transparent 70%)}
+.burn-head{position:relative;z-index:6;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 16px) 18px 4px}
+.burn-head .vent-close{position:absolute;right:18px;top:calc(env(safe-area-inset-top,0px) + 12px)}
+.burn-title{font-family:var(--serif);letter-spacing:.24em;font-size:1.35rem;font-weight:600;color:#F0D8B8;text-shadow:0 0 22px rgba(232,167,101,.45);text-align:center;flex:1}
+.burn-body{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;padding:6px 22px calc(24px + env(safe-area-inset-bottom,0px));overflow-y:auto}
+.burn-sub{color:#CDBBA0;font-size:.78rem;letter-spacing:.02em;text-align:center;line-height:1.9;max-width:440px;margin-top:2px;text-wrap:pretty}
+/* 符咒 */
+.letter-wrap{position:relative;width:100%;max-width:330px;perspective:900px}
+.talisman{position:relative;width:100%;background:
+    linear-gradient(170deg,#F6EAD2,#EFE0C0);
+    border:1px solid #C9A86A;border-radius:4px;
+    box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 26px rgba(201,168,106,.18), inset 0 0 0 1px rgba(255,255,255,.35);
+    padding:54px 30px 46px;transform-origin:top center;transition:transform .3s;overflow:hidden;
+    animation:talBreath 4.2s ease-in-out infinite}
+@keyframes talBreath{0%,100%{box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 26px rgba(201,168,106,.18), inset 0 0 0 1px rgba(255,255,255,.35), 0 0 0 0 rgba(232,201,135,0)}50%{box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 30px rgba(224,170,90,.26), inset 0 0 0 1px rgba(255,255,255,.4), 0 0 26px 2px rgba(232,201,135,.22)}}
+/* 內框細線 */
+.talisman::after{content:'';position:absolute;left:12px;right:12px;top:12px;bottom:12px;border:1px solid rgba(201,168,106,.4);border-radius:2px;pointer-events:none;z-index:1}
+/* 符頭星月金印 */
+.tal-seal{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:42px;height:42px;z-index:2;filter:drop-shadow(0 0 8px rgba(232,201,135,.5))}
+.tal-seal svg{width:100%;height:100%}
+/* 底部封印星 */
+.tal-foot{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:58px;height:26px;z-index:2;opacity:.9}
+.tal-foot svg{width:100%;height:100%}
+/* 兩側星點符文邊 */
+.tal-rune{position:absolute;top:48px;bottom:42px;width:14px;z-index:2;pointer-events:none}
+.tal-rune-l{left:14px}.tal-rune-r{right:14px}
+/* 書寫區 */
+.talisman textarea{width:100%;min-height:150px;border:none;resize:none;outline:none;
+    font-family:'Noto Serif TC',serif;font-size:15px;line-height:30px;color:#4A3F2E;box-sizing:border-box;
+    position:relative;z-index:2;padding:0;text-align:center;background:transparent}
+.talisman textarea::placeholder{color:#A99878}
+/* 焚燒:符紙焦黃捲曲下沉 */
+.talisman.burning{animation:letterBurn 2.6s ease-in forwards}
+@keyframes letterBurn{0%{filter:none}30%{filter:sepia(.5) brightness(.95)}70%{filter:sepia(1) brightness(.7) contrast(1.1)}100%{filter:sepia(1) brightness(.25) contrast(1.2);transform:translateY(20px) scale(.97);opacity:.12}}
+.talisman.burning::before{content:'';position:absolute;left:0;right:0;top:0;height:100%;background:linear-gradient(180deg,rgba(50,25,8,.85),rgba(200,100,35,.32) 50%,transparent);pointer-events:none;z-index:3;animation:burnDown 2.4s ease-in forwards}
+@keyframes burnDown{0%{clip-path:inset(0 0 100% 0)}100%{clip-path:inset(0 0 0 0)}}
+/* 起咒:符文邊先亮 */
+.talisman.casting .tal-rune,.talisman.casting .tal-seal,.talisman.casting .tal-foot{animation:runeGlow .9s ease-out}
+@keyframes runeGlow{0%{filter:drop-shadow(0 0 0 rgba(244,227,178,0))}50%{filter:drop-shadow(0 0 10px rgba(244,227,178,.95))}100%{filter:drop-shadow(0 0 3px rgba(244,227,178,.4))}}
+
+
+
+/* 上下裝飾細線 */
+
+/* 左側裝訂線(暖紅,像信箋) */
+
+
+
+
+
+/* 燃燒態:信紙焦黃、捲曲、下沉 */
+
+@keyframes letterBurn{
+  0%{filter:none}
+  30%{filter:sepia(.5) brightness(.95)}
+  70%{filter:sepia(1) brightness(.7) contrast(1.1)}
+  100%{filter:sepia(1) brightness(.25) contrast(1.2);transform:translateY(20px) scale(.97);opacity:.15}
+}
+
+/* 火星 / 灰燼 */
+.ember{position:fixed;border-radius:50%;pointer-events:none;z-index:8;will-change:transform,opacity}
+.ember.hot{background:radial-gradient(circle,#FFE9A8,#E8852E);box-shadow:0 0 8px rgba(232,140,60,.9)}
+.ember.ash{background:#6B6258;opacity:.7}
+.ember.star{background:radial-gradient(circle,#FFF6D8,#E0C28A);box-shadow:0 0 10px rgba(244,227,178,.9)}
+/* 祈福籤 */
+.fortune{position:absolute;inset:0;z-index:9;display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:40px 30px;text-align:center;background:radial-gradient(120% 90% at 50% 30%,rgba(40,30,40,.94),rgba(20,15,22,.96))}
+.fortune.show{display:flex;animation:pagein .6s ease}
+.fortune-frame{max-width:340px;border-top:1px solid rgba(224,167,101,.5);border-bottom:1px solid rgba(224,167,101,.5);padding:34px 22px;position:relative}
+.fortune-star{position:absolute;top:-17px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 0 10px rgba(244,227,178,.6))}
+.fortune-text{font-family:var(--serif);font-size:1.12rem;line-height:2.1;letter-spacing:.05em;color:#F3E7CE;text-shadow:0 0 20px rgba(244,227,178,.25)}
+.fortune-text .nb{white-space:nowrap;display:inline}
+.fortune button{margin-top:4px;border:1px solid rgba(201,168,106,.5);background:transparent;color:#E8C987;border-radius:999px;padding:11px 26px;font-family:var(--serif);letter-spacing:.1em}
+
+/* ---------- 焚信祈福室 END ---------- */
+
 .confess-paper{position:relative;width:100%;max-width:420px;transition:opacity .9s,transform .9s}
 .seal{position:absolute;right:11px;bottom:9px;width:30px;height:30px;background:#B5453C;color:#F8F1E3;font-family:var(--serif);font-size:.95rem;display:flex;align-items:center;justify-content:center;border-radius:5px;transform:rotate(-5deg);opacity:.92;box-shadow:0 1px 4px rgba(0,0,0,.3);pointer-events:none}
 .gold-div{width:74%;max-width:330px;height:1px;background:linear-gradient(90deg,transparent,#C9A86A,transparent);position:relative;margin:2px 0}
@@ -1011,6 +1090,11 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
       <span data-i18n="door_shrine">寫給你的旋律</span>
       <span class="dsub" data-i18n="door_shrine_sub">寫完,化成音符傳給他</span>
     </button>
+    <button class="door" id="doorBurn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A765" stroke-width="1.4"><path d="M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-1.4.6-2.3 1.4-3"/><path d="M12 13.5c.6.5 1 1.2 1 2a1.6 1.6 0 0 1-3.2 0c0-.5.2-.9.5-1.3"/></svg>
+      <span data-i18n="door_burn">焚信祈福</span>
+      <span class="dsub" data-i18n="door_burn_sub">燒掉煩惱,乞一支好籤</span>
+    </button>
   </div>
   <button class="hall-close" id="hallClose" data-i18n="btn_back">先回去</button>
 </div>
@@ -1041,6 +1125,44 @@ footer.about{text-align:center;color:var(--ink-faint);font-size:.7rem;line-heigh
     <div class="oracle-note" data-i18n="oracle_note">紙箋已化作星屑,你寫下的字沒有被記下。</div>
     <button id="oracleAgain" data-i18n="btn_again">再寫一張</button>
     <button id="oracleLeave" style="border-color:transparent;color:#9C8FA8" data-i18n="btn_toatlas">回到星圖</button>
+  </div>
+</div>
+
+<!-- 焚信祈福室 -->
+<div class="burn-room" id="burnRoom">
+  <div class="burn-bg" id="burnBg"></div>
+  <div class="burn-head">
+    <div class="burn-title" data-i18n="burn_title">焚信祈福</div>
+    <button class="vent-close" id="burnClose" aria-label="離開" style="border-color:#C9A86A;color:#E8C987">
+      <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 5l14 14M19 5 5 19"/></svg>
+    </button>
+  </div>
+  <div class="burn-body">
+    <div class="burn-sub"><span data-i18n="burn_sub">把心裡的鬱悶寫成一封信,<br>交給火,讓它隨煙飛散。<br>燒完,為你求一支好籤。</span></div>
+    <div class="letter-wrap" id="letterWrap">
+      <div class="talisman" id="letterPaper">
+        <svg class="tal-rune tal-rune-l" viewBox="0 0 16 320" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <svg class="tal-rune tal-rune-r" viewBox="0 0 16 320" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="tal-seal" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="#C9A86A" stroke-width="1.2" opacity=".7"/><path d="M30 26.5A8.5 8.5 0 0 1 21 16a8.5 8.5 0 1 0 9 10.5Z" fill="#E8C987" stroke="#C9A86A" stroke-width=".6"/><path d="M33 15.5l.9 2.2 2.2.9-2.2.9-.9 2.2-.9-2.2-2.2-.9 2.2-.9Z" fill="#F4E3B2"/></svg>
+        </div>
+        <textarea id="burnText" maxlength="300" data-i18n-ph="burn_ph" placeholder="把心裡的話寫在這裡⋯⋯"></textarea>
+        <div class="tal-foot" aria-hidden="true">
+          <svg viewBox="0 0 60 28"><circle cx="30" cy="14" r="9" fill="none" stroke="#C9A86A" stroke-width="1" opacity=".6"/><path d="M30.0 7.5L31.3 11.9L35.9 11.8L32.2 14.5L33.6 18.9L30.0 16.2L26.4 18.9L27.8 14.5L24.1 11.8L28.7 11.9Z" fill="#E8C987"/></svg>
+        </div>
+      </div>
+    </div>
+    <button class="burn-btn" id="burnFireBtn" data-i18n="burn_btn">焚 予 星 空</button>
+    <div class="shrine-note" data-i18n="burn_note">寫下的字不會被保存,燒成灰,隨風走。</div>
+  </div>
+  <!-- 祈福籤 -->
+  <div class="fortune" id="fortune">
+    <div class="fortune-frame">
+      <svg class="fortune-star" width="34" height="34" viewBox="0 0 24 24"><path d="M12.00 1.00L14.12 8.09L21.51 7.91L15.42 12.11L17.88 19.09L12.00 14.60L6.12 19.09L8.58 12.11L2.49 7.91L9.88 8.09Z" fill="#F0DCA8" stroke="#C9A86A" stroke-width=".6"/></svg>
+      <div class="fortune-text" id="fortuneText"></div>
+    </div>
+    <button id="fortuneAgain" data-i18n="btn_again">再燒一封</button>
+    <button id="fortuneLeave" style="border-color:transparent;color:#9C8FA8" data-i18n="btn_toatlas">回到星圖</button>
   </div>
 </div>
 
@@ -1270,6 +1392,12 @@ const I18N = {
  hall_title:["別人看不見的迴廊","A corridor no one else can see"],
  door_vent:["搖搖冷靜乳","Shake-the-Calm"], door_vent_sub:["把悶氣搖成奶泡","shake tension into foam"],
  door_shrine:["寫給你的旋律","A Melody for You"], door_shrine_sub:["寫完,化成音符傳給他","write it, let it drift to him as notes"],
+ door_burn:["焚信祈福","Burn & Bless"], door_burn_sub:["燒掉煩惱,乞一支好籤","burn the worry, draw a blessing"],
+ burn_title:["焚信祈福","Burn & Bless"],
+ burn_sub:["把心裡的鬱悶寫成一封信,<br>交給火,讓它隨煙飛散。<br>燒完,為你求一支好籤。","Write your worry into a letter,<br>give it to the fire, let it scatter with the smoke.<br>Then draw a blessing for you."],
+ burn_ph:["把想燒掉的話寫在這裡⋯⋯","Write what you want to burn away…"],
+ burn_btn:["焚 予 星 空","Burn it to the sky"],
+ burn_note:["寫下的字不會被保存,燒成灰,隨風走。","What you write is never saved — it turns to ash and drifts away."],
  btn_back:["先回去","Go back"],
  shrine_note:["寫下的字不會被保存,只會化成音符傳給他。","What you write is never saved — it only becomes notes that drift to him."],
  shrine_sub:["時間不等人,隨著年齡的增長,<br>更能深入理解時間的現實與虛幻。<br>生活給我們帶來了各種各樣的轉折和挑戰,<br>但我認為我們的目標之一,<br>是以雅緻得體的態度走完生命之路。","Time waits for no one; with age<br>we grasp its reality and illusion more deeply.<br>Life brings all kinds of turns and challenges,<br>but one of our goals is to walk<br>life's path with grace."],
@@ -3024,6 +3152,126 @@ function openHallway(){ $('#hallway').classList.add('open'); }
 $('#hallClose').addEventListener('click',()=>$('#hallway').classList.remove('open'));
 const _dv=$('#doorVent'); if(_dv) _dv.addEventListener('click',()=>{ $('#hallway').classList.remove('open'); openVent(); });
 $('#doorShrine').addEventListener('click',()=>{ $('#hallway').classList.remove('open'); openShrine(); });
+$('#doorBurn').addEventListener('click',()=>{ $('#hallway').classList.remove('open'); openBurn(); });
+
+/* =====================================================
+   焚信祈福室:寫信 → 焚燒 → 火星灰燼帶字升空 → 化成星 → 祈福籤
+   文字刻意不儲存
+===================================================== */
+const FORTUNES_ZH = [
+ '願厄運隨煙散去,好運隨星歸來。','燒去的都過去了,留下的都是光。','煙往上走,心往下安。',
+ '把不甘心交給火,把好眠留給自己。','燒掉的是煩惱,升起的是運氣。','願所有為難你的,都隨灰飛散。',
+ '該放的放了,該走的走了,剩下的是你。','火會把重的帶走,你只要輕輕的。','燒成灰的事,就別再撿回來了。',
+ '讓它燒乾淨,明天從零開始。','願你明天醒來,輕一點點。','願星空收下你的累,還你一夜好夢。',
+ '願你被溫柔對待,從今晚開始。','今晚就先不想了,星星替你守著。','把今天關在門外,好好睡一覺。',
+ '夜深了,連煩惱都該下班了。','願好事正在來的路上。','願你抽到的每一張籤,都是上上籤。',
+ '願轉角遇到的,都是溫柔的人。','願你要的剛好都來,不要的剛好都走。','願下一個消息,是你等了很久的好消息。',
+ '願你付出的,都長成看得見的好。','願明天的你,比今天輕盈一點。','燒完這封,就翻過這一頁吧。',
+ '新的一頁,乾淨得剛剛好。','願你明早睜眼,世界溫柔一點。','火接住了你不想說的,你可以放下了。',
+ '看著它燒成光,心也跟著亮一點。'
+];
+const FORTUNES_EN = [
+ 'May misfortune leave with the smoke, and luck return with the stars.','What burned is behind you; what remains is light.','Smoke rises, the heart settles.',
+ 'Give the resentment to the fire, keep the rest for sleep.','What burns away is worry; what rises is luck.','May all that troubled you scatter with the ash.',
+ 'What should go has gone; what remains is you.','The fire takes the heavy; you stay light.','Let what turned to ash stay ash.',
+ 'Let it burn clean; begin again tomorrow.','May you wake a little lighter tomorrow.','May the night sky take your tiredness and return a good dream.',
+ 'May you be treated gently, starting tonight.','Don\'t think about it tonight; the stars keep watch.','Shut today outside the door and sleep well.',
+ 'It\'s late — even worries should clock out.','Good things are already on their way.','May every fortune you draw be the best one.',
+ 'May everyone you meet around the corner be kind.','May what you want arrive, and what you don\'t depart.','May the next message be the good news you waited for.',
+ 'May all you gave grow into something you can see.','May tomorrow\'s you be lighter than today.','Burn this letter, and turn the page.',
+ 'A new page, clean just right.','May you open your eyes to a gentler world.','The fire caught what you couldn\'t say; you can let go.',
+ 'Watch it burn into light, and feel a little brighter.'
+];
+let burnDone=false;
+function buildRunes(){
+  // 兩側星點符文(細線 + 小星,純裝飾)
+  const mk=(el)=>{
+    if(!el) return;
+    let d='';
+    for(let i=0;i<6;i++){ const y=12+i*48; d+=`<circle cx="8" cy="${y}" r="1.5" fill="#C9A86A" opacity=".7"/>`; if(i<5) d+=`<line x1="8" y1="${y+6}" x2="8" y2="${y+42}" stroke="#C9A86A" stroke-width=".7" opacity=".35"/>`; d+=`<path d="M8 ${y-7}l.9 2 2 .1-1.6 1.2.6 2-1.9-1.1-1.9 1.1.6-2-1.6-1.2 2-.1Z" fill="#E8C987" opacity=".55"/>`; }
+    el.innerHTML=d;
+  };
+  mk($('#letterPaper').querySelector('.tal-rune-l'));
+  mk($('#letterPaper').querySelector('.tal-rune-r'));
+}
+function openBurn(){
+  $('#burnText').value=''; const p=$('#letterPaper'); p.classList.remove('burning','casting');
+  $('#fortune').classList.remove('show'); $('#burnFireBtn').disabled=false;
+  buildRunes();
+  $('#burnRoom').classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeBurn(){
+  const ta=$('#burnText'); ta.value=''; ta.blur();
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  $('#burnRoom').classList.remove('open'); document.body.style.overflow='';
+  window.scrollTo(0,0); const bb=$('.burn-body'); if(bb) bb.scrollTop=0;
+}
+$('#burnClose').addEventListener('click',closeBurn);
+$('#fortuneLeave').addEventListener('click',closeBurn);
+$('#fortuneAgain').addEventListener('click',openBurn);
+$('#burnFireBtn').addEventListener('click',()=>{
+  const text=$('#burnText').value.trim();
+  if(!text){ toast(DB.settings.lang==='en'?'Write something to burn first':'先寫下想燒掉的話'); return; }
+  $('#burnFireBtn').disabled=true; vib([15,40,20,60]);
+  const paper=$('#letterPaper');
+  paper.classList.add('casting');     // 起咒:符文先亮
+  setTimeout(()=>{ fireCrackle(); paper.classList.add('burning'); }, 600);
+  const pr=paper.getBoundingClientRect();
+  const room=$('#burnRoom');
+  // 火星 + 灰燼 + 字屑,從信紙往上升,後段化成星
+  for(let i=0;i<34;i++){
+    setTimeout(()=>{
+      const kind = Math.random()<.5?'hot':(Math.random()<.5?'ash':'star');
+      const e=document.createElement('div'); e.className='ember '+kind;
+      const s = kind==='ash'? 2+Math.random()*3 : 3+Math.random()*5;
+      const x0 = pr.left + Math.random()*pr.width;
+      const y0 = pr.top + pr.height*(.3+Math.random()*.6);
+      e.style.cssText=`width:${s}px;height:${s}px;left:${x0}px;top:${y0}px`;
+      room.appendChild(e);
+      const driftX=(Math.random()*2-1)*70;
+      const riseY=120+Math.random()*220;
+      const amp=10+Math.random()*26, turns=1.5+Math.random()*1.5, ph=Math.random()*6.28;
+      const N=16, frames=[];
+      for(let k=0;k<=N;k++){
+        const t=k/N;
+        const x=driftX*t+amp*Math.sin(ph+t*6.28*turns)*(1-t*.4);
+        const y=-riseY*(1-Math.pow(1-t,1.8));
+        const toStar = kind==='star' ? (t<.5?0:(t-.5)/.5) : 0;
+        const tw = .7+.3*Math.sin(ph*4+t*30);
+        let op; if(t<.1)op=t/.1; else if(toStar>0)op=(1-toStar*.5)*tw; else op=Math.max(0,(1-t)* (kind==='hot'?tw:1));
+        const sc=(1-t*.3)*(1-toStar*.4);
+        frames.push({transform:`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${sc.toFixed(2)})`,opacity:Math.max(0,op).toFixed(2)});
+      }
+      e.animate(frames,{duration:3200+Math.random()*2400,easing:'linear'}).onfinish=()=>e.remove();
+    }, 600 + i*70);
+  }
+  $('#burnText').value='';   // 字不保存
+  // 燒完浮出祈福籤
+  setTimeout(()=>{
+    const EN=DB.settings.lang==='en';
+    const arr=EN?FORTUNES_EN:FORTUNES_ZH;
+    const pick=arr[Math.floor(Math.random()*arr.length)];
+    const parts=pick.split(/(?<=[,,。])/).filter(Boolean);
+    $('#fortuneText').innerHTML=parts.map(p=>`<span class=\"nb\">${p}</span>`).join('');
+    $('#fortune').classList.add('show');
+    bell();
+  }, 3600);
+});
+function fireCrackle(){
+  try{
+    if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); AC.resume();
+    // 連續輕微劈啪(濾波白噪)
+    for(let i=0;i<8;i++){
+      const t=AC.currentTime+i*.28+Math.random()*.1;
+      const len=AC.sampleRate*.04, buf=AC.createBuffer(1,len,AC.sampleRate), d=buf.getChannelData(0);
+      for(let j=0;j<len;j++) d[j]=(Math.random()*2-1)*(1-j/len);
+      const ns=AC.createBufferSource(); ns.buffer=buf;
+      const bp=AC.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=800+Math.random()*1200; bp.Q.value=.6;
+      const g=AC.createGain(); g.gain.setValueAtTime(.05+Math.random()*.05,t); g.gain.exponentialRampToValueAtTime(.0006,t+.06);
+      ns.connect(bp); bp.connect(g); g.connect(AC.destination); ns.start(t);
+    }
+  }catch(e){}
+}
 
 /* =====================================================
    神的告解室
